@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+<div class="alarms">
+  <header>
+    <div class="columns">
+      <div class="column is-10">
+        Alarms
+      </div>
+      <div class="column">
+        <span class="plus">
+          <%= link_to new_alarm_path do %>
+            <span class="icon has-text-info">
+              <i class="fas fa-plus"></i>
+            </span>
+          <% end %>
+        </span>
+      </div>
+    </div>
+  </header>
+  <section>
+    <ul>
+      <% @alarms.each do |alarm| %>
+        <li <%= dom_id(alarm)%> >
+          <span><%= alarm.rule %></span>
+          <span class="icon has-text-info">
+            <i class="far fa-clock"></i>
+          </span>
+          <span><%= link_to alarm.datetime.to_s(:time), alarm %></span>
+          <%= link_to alarm_toggle_active_path(alarm), remote: true, method: :post do %>
+            <span class="icon has-text-info">
+              <i class="fas fa-lg fa-toggle-<%=alarm.active? ? 'on' : 'off' %>"></i>
+            </span>
+          <% end %>
+          <span>
+            <%= link_to alarm, method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <span class="icon has-text-danger">
+                <i class="fas fa-times-circle"></i>
+              </span>
+            <% end %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+  <footer></footer>
+</div>
