@@ -44,6 +44,7 @@ class AlarmsController < ApplicationController
   def update
     respond_to do |format|
       if @alarm.update(alarm_params)
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@alarm) }
         format.html { redirect_to @alarm, notice: 'Alarm was successfully updated.' }
         format.json { render :show, status: :ok, location: @alarm }
       else
@@ -69,10 +70,6 @@ class AlarmsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_alarm
     @alarm = Alarm.find(params[:id])
-  end
-
-  def toogle_active
-    @alarm.toggle! :active
   end
 
   # Only allow a list of trusted parameters through.
