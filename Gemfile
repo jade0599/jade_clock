@@ -47,6 +47,25 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem "ice_cube", "~> 0.16.3"
-
 gem "hotwire-rails", "~> 0.1.1"
+
+
+#############@ capistrano
+group :development do
+  gem 'capistrano', '~> 3.14', '>= 3.14.1'
+
+  # rails specific capistrano functions
+  gem 'capistrano-rails', '~> 1.6', '>= 1.6.1'
+  # integrate bundler with capistrano
+  gem 'capistrano-bundler', '~> 2.0', '>= 2.0.1'
+  # if you are using Rbenv
+  gem 'capistrano-rbenv', "~> 2.0"
+  # include helper tasks
+  gem 'capistrano-cookbook', '~> 0.2.1', require: false
+
+  #gem 'capistrano-rvm', '~> 0.1.2'
+  gem 'capistrano-passenger', '~> 0.2.0'
+  gem 'capistrano-db-tasks', :git => 'https://github.com/toba75/capistrano-db-tasks.git', require: false
+
+
+end
