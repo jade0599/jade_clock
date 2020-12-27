@@ -1,6 +1,5 @@
 class AlarmsController < ApplicationController
   before_action :set_alarm, only: [:show, :edit, :update, :destroy]
-
   # GET /alarms
   # GET /alarms.json
   def index
@@ -25,9 +24,12 @@ class AlarmsController < ApplicationController
   # POST /alarms.json
   def create
     @alarm = Alarm.new(alarm_params)
-
     respond_to do |format|
       if @alarm.save
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.append(:alarms, partial: "alarms/alarm",
+                                                   locals:             { alarm: @alarm }, formats: :html)
+        end
         format.html { redirect_to @alarm, notice: 'Alarm was successfully created.' }
         format.json { render :show, status: :created, location: @alarm }
       else
@@ -56,23 +58,25 @@ class AlarmsController < ApplicationController
   def destroy
     @alarm.destroy
     respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@alarm) }
       format.html { redirect_to alarms_url, notice: 'Alarm was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_alarm
-      @alarm = Alarm.find(params[:id])
-    end
 
-    def toogle_active
-      @alarm.toggle! :active
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_alarm
+    @alarm = Alarm.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def alarm_params
-      params.require(:alarm).permit(:datetime, :rule, :active)
-    end
+  def toogle_active
+    @alarm.toggle! :active
+  end
+
+  # Only allow a list of trusted parameters through.
+  def alarm_params
+    params.require(:alarm).permit(:datetime, :rule, :active)
+  end
 end

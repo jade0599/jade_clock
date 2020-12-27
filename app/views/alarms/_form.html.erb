@@ -10,23 +10,17 @@
       </ul>
     </div>
   <% end %>
+  <div class="field is-horizontal is-grouped is-grouped-centered">
+    <div class="control">
+      <%= form.time_select :datetime %>
+    </div>
 
-  <div class="field">
-    <%= form.label :datetime %>
-    <%= form.datetime_select :datetime %>
-  </div>
+    <div class="control">
+      <%= form.check_box :active %>
+    </div>
 
-  <div class="field">
-    <%= form.label :rule %>
-    <%= form.text_area :rule %>
-  </div>
-
-  <div class="field">
-    <%= form.label :active %>
-    <%= form.check_box :active %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+    <div class="control">
+      <%= form.submit %>
+    </div>
   </div>
 <% end %>
