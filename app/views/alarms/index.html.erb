@@ -7,13 +7,16 @@
       </div>
     </div>
   </header>
+  <section class="form">
+    <%= render "form", alarm: Alarm.new %>
+  </section>
   <section>
-      <turbo-frame id="alarms">
-        <%= render partial: 'alarm', collection: @alarms %>
-      </turbo-frame>
+    <turbo-frame id="alarms">
+      <%= render partial: 'alarm', collection: @alarms %>
+    </turbo-frame>
   </section>
   <footer>
-    <%= render "form", alarm: Alarm.new %>
+
   </footer>
 </div>
 
