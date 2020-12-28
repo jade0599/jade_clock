@@ -70,3 +70,5 @@ group :development do
 end
 
 gem "turbo-rails", "~> 0.5.1"
+
+gem "pg", "~> 1.2"
