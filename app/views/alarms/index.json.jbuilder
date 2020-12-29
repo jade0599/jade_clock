@@ -1,1 +1,2 @@
-json.array! @alarms.select {|e| e.active?}, partial: "alarms/alarm", as: :alarm
+json.alarmes @alarms.select {|e| e.active?}.map(&:datetime).map {|alarm| alarm.to_s(:time)}
+
